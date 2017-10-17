@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public int score = 0;
@@ -32,10 +33,12 @@ public class GameManager : MonoBehaviour {
                 if(score > 10)
                 {
                     uiCont.SetWin();
+                    SceneManager.LoadScene("Win Scene");
                 }
                 else
                 {
                     uiCont.SetLose();
+                    SceneManager.LoadScene("LoseScene");
                 }
             }
         }
