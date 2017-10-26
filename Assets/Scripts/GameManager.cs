@@ -30,15 +30,15 @@ public class GameManager : MonoBehaviour {
             }
             else
             {
-                if(score > 10)
+                if(score >= 10)
                 {
                     uiCont.SetWin();
-                    SceneManager.LoadScene("Win Scene");
+                    SceneManager.LoadScene(2);
                 }
                 else
                 {
                     uiCont.SetLose();
-                    SceneManager.LoadScene("LoseScene");
+                    SceneManager.LoadScene(3);
                 }
             }
         }

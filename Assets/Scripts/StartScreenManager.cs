@@ -6,32 +6,37 @@ using UnityEngine.UI;
 
 public class StartScreenManager : MonoBehaviour {
     Transform rightHand;
+    Transform gearVrController;
     LineRenderer lineRenderer;
 
 	// Use this for initialization
 	void Start () {
         rightHand = GameObject.Find("RightHandAnchor").transform;
-        lineRenderer = GetComponent<LineRenderer>();
-	}
+        gearVrController = GameObject.Find("GearVrController").transform;
+        lineRenderer = gearVrController.GetComponent<LineRenderer>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
         RaycastHit hit;
-        Ray ray = new Ray(rightHand.position, rightHand.forward);
+        Ray ray = new Ray(gearVrController.position, gearVrController.GetChild(0).forward);
         lineRenderer.SetPosition(0, rightHand.position);
-        lineRenderer.SetPositions(null);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             lineRenderer.SetPosition(1, hit.point);
         }
         else
         {
-            lineRenderer.SetPosition(1,rightHand.position + (2 * ray.direction));
+            lineRenderer.SetPosition(1,rightHand.position + (10 * ray.direction));
         }
 
         if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && hit.transform.gameObject == GameObject.Find("Button"))
         {
             StartGame();
+        }
+        if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && hit.transform.gameObject == GameObject.Find("Quit"))
+        {
+            Application.Quit();
         }
 	}
 
