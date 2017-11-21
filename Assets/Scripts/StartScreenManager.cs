@@ -5,21 +5,38 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StartScreenManager : MonoBehaviour {
-    Transform rightHand;
-    Transform gearVrController;
+    public Transform rightHand;
+    Transform VrController;
     LineRenderer lineRenderer;
+    SteamVR_TrackedController RController;
+    bool TriggerPressed = false;
+
 
 	// Use this for initialization
 	void Start () {
-        rightHand = GameObject.Find("RightHandAnchor").transform;
-        gearVrController = GameObject.Find("GearVrController").transform;
-        lineRenderer = gearVrController.GetComponent<LineRenderer>();
+        //rightHand = GameObject.Find("Controller (right)").transform;
+        VrController = rightHand;
+        lineRenderer = VrController.GetComponent<LineRenderer>();
+        RController = VrController.GetComponent<SteamVR_TrackedController>();
+        RController.TriggerClicked += RController_TriggerClicked;
+        RController.TriggerUnclicked += RController_TriggerUnclicked;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void RController_TriggerUnclicked(object sender, ClickedEventArgs e)
+    {
+        TriggerPressed = false;
+    }
+
+    private void RController_TriggerClicked(object sender, ClickedEventArgs e)
+    {
+        TriggerPressed = true;
+    }
+
+    // Update is called once per frame
+    void Update () {
+
         RaycastHit hit;
-        Ray ray = new Ray(gearVrController.position, gearVrController.GetChild(0).forward);
+        Ray ray = new Ray(VrController.position, VrController.GetChild(0).forward);
         lineRenderer.SetPosition(0, rightHand.position);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
@@ -30,11 +47,11 @@ public class StartScreenManager : MonoBehaviour {
             lineRenderer.SetPosition(1,rightHand.position + (10 * ray.direction));
         }
 
-        if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && hit.transform.gameObject == GameObject.Find("Button"))
+        if(TriggerPressed && hit.transform.gameObject == GameObject.Find("Button"))
         {
             StartGame();
         }
-        if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) && hit.transform.gameObject == GameObject.Find("Quit"))
+        if(TriggerPressed && hit.transform.gameObject == GameObject.Find("Quit"))
         {
             Application.Quit();
         }
