@@ -10,6 +10,7 @@ public class StartScreenManager : MonoBehaviour {
     LineRenderer lineRenderer;
     SteamVR_TrackedController RController;
     bool TriggerPressed = false;
+    float TimeSinceLoad = 0;
 
 
 	// Use this for initialization
@@ -34,27 +35,31 @@ public class StartScreenManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
+        TimeSinceLoad += Time.deltaTime;
         RaycastHit hit;
         Ray ray = new Ray(VrController.position, VrController.GetChild(0).forward);
         lineRenderer.SetPosition(0, rightHand.position);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             lineRenderer.SetPosition(1, hit.point);
+            if (TimeSinceLoad >= 1)
+            {
+                if (TriggerPressed && hit.transform.gameObject == GameObject.Find("Button"))
+                {
+                    StartGame();
+                }
+                if (TriggerPressed && hit.transform.gameObject == GameObject.Find("Quit"))
+                {
+                    Application.Quit();
+                }
+            }
         }
         else
         {
             lineRenderer.SetPosition(1,rightHand.position + (10 * ray.direction));
         }
 
-        if(TriggerPressed && hit.transform.gameObject == GameObject.Find("Button"))
-        {
-            StartGame();
-        }
-        if(TriggerPressed && hit.transform.gameObject == GameObject.Find("Quit"))
-        {
-            Application.Quit();
-        }
+        
 	}
 
     public void StartGame()
