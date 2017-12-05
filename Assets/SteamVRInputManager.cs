@@ -7,6 +7,10 @@ public class SteamVRInputManager : MonoBehaviour {
     public SteamVR_TrackedController RControl;
     public GameObject CameraRig;
 
+    private bool GripAttempt = false;
+    private bool ShootAttempt = false;
+    private bool HasGun = false;
+
 	// Use this for initialization
 	void Start () {
         //Gripped
@@ -56,112 +60,112 @@ public class SteamVRInputManager : MonoBehaviour {
 
     private void RControl_MenuButtonUnclicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("MenuButton Unclicked on " + RControl.gameObject.name);
     }
 
     private void LControl_MenuButtonUnclicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("MenuButton Unclicked on " + LControl.gameObject.name);
     }
 
     private void RControl_MenuButtonClicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("MenuButton Clicked on " + RControl.gameObject.name);
     }
 
     private void LControl_MenuButtonClicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("MenuButton Clicked on " + LControl.gameObject.name);
     }
 
     private void RControl_SteamClicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Steam Clicked on " + RControl.gameObject.name);
     }
 
     private void LControl_SteamClicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Steam Clicked on " + LControl.gameObject.name);
     }
 
     private void RControl_PadUnclicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("ControlPad Unclicked on " + RControl.gameObject.name);
     }
 
     private void LControl_PadUnclicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("ControlPad Unclicked on " + LControl.gameObject.name);
     }
 
     private void RControl_PadUntouched(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("ControlPad Untouched on " + RControl.gameObject.name);
     }
 
     private void LControl_PadUntouched(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("ControlPad Untouched on " + LControl.gameObject.name);
     }
 
     private void RControl_PadClicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("ControlPad Clicked on " + RControl.gameObject.name);
     }
 
     private void LControl_PadClicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("ControlPad Clicked on " + LControl.gameObject.name);
     }
 
     private void RControl_PadTouched(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("ControlPad Touched on " + RControl.gameObject.name);
     }
 
     private void LControl_PadTouched(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("ControlPad Touched on " + LControl.gameObject.name);
     }
 
     private void RControl_TriggerUnclicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Trigger Unclicked on " + RControl.gameObject.name);
     }
 
     private void LControl_TriggerUnclicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Trigger Unclicked on " + LControl.gameObject.name);
     }
 
     private void RControl_TriggerClicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Trigger Clicked on " + RControl.gameObject.name);
     }
 
     private void LControl_TriggerClicked(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Trigger Clicked on " + LControl.gameObject.name);
     }
 
     private void RControl_Ungripped(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Control Ungripped on " + RControl.gameObject.name);
     }
 
     private void LControl_Ungripped(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Control Ungripped on " + LControl.gameObject.name);
     }
 
     private void RControl_Gripped(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Control Gripped on " + RControl.gameObject.name);
     }
 
     private void LControl_Gripped(object sender, ClickedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Control Gripped on " + LControl.gameObject.name);
     }
 
     // Update is called once per frame
