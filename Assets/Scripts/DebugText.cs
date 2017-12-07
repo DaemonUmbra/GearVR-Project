@@ -4,14 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DebugText : MonoBehaviour {
-
+    SteamVRInputManager SVRManager;
+    public string TextToPrint = "";
 	// Use this for initialization
 	void Start () {
-		
-	}
+        SVRManager = GameObject.Find("GameManager").GetComponent<SteamVRInputManager>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        gameObject.GetComponent<Text>().text = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger).ToString();
+        TextToPrint = "LStick: " + SVRManager.LStick + "   RStick: " + SVRManager.RStick; 
+        gameObject.GetComponent<Text>().text = TextToPrint;
 	}
 }
