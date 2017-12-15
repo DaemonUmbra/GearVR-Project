@@ -3,14 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 public class SteamVRInputManager : MonoBehaviour {
 
+    public SteamVR_Controller LController;
     public SteamVR_Controller.Device LDevice;
+    public string LDeviceName;
     public SteamVR_TrackedController LControl;
     public Vector2 LStick;
 
+    public SteamVR_Controller RController;
     public SteamVR_Controller.Device RDevice;
+    public string RDeviceName;
     public SteamVR_TrackedController RControl;
     public Vector2 RStick;
 
@@ -26,9 +31,7 @@ public class SteamVRInputManager : MonoBehaviour {
 	void Start () {
         MainInput = GetComponent<PlayerInput>();
 
-        //Get Devices for non-event input
-        LDevice = SteamVR_Controller.Input((int)LControl.controllerIndex);
-        RDevice = SteamVR_Controller.Input((int)RControl.controllerIndex);
+        
 
         //Gripped
         LControl.Gripped += LControl_Gripped;
@@ -196,7 +199,23 @@ public class SteamVRInputManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        //Get Devices for non-event input
+        LDevice = SteamVR_Controller.Input((int)LControl.controllerIndex);
+        RDevice = SteamVR_Controller.Input((int)RControl.controllerIndex);
+
         LStick = new Vector2(LControl.controllerState.rAxis0.x, LControl.controllerState.rAxis0.y);
         RStick = new Vector2(RControl.controllerState.rAxis0.x, RControl.controllerState.rAxis0.y);
+
+        if (LDevice.GetPressDown(EVRButtonId.k_EButton_A))
+        {
+            Debug.Log("Left button!");
+            MainInput.ResetGun();
+        }
+        if (RDevice.GetPressDown(EVRButtonId.k_EButton_A))
+        {
+            Debug.Log("Right button!");
+            MainInput.RestartGame();
+        }
     }
 }

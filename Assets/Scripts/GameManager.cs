@@ -10,11 +10,22 @@ public class GameManager : MonoBehaviour {
     public int Minutes = 2;
     public float Seconds = 0;
     public UIController uiCont;
+    public Vector3 OriginalGunPos { get; private set; }
+    public Quaternion OriginalGunRot { get; private set; }
+
+    public GameObject Gun { get; private set; }
 	// Use this for initialization
 	void Start () {
+        Gun = GameObject.Find("Gun");
+        for(int i = 0;i< Gun.transform.childCount;i++)
+        {
+            Physics.IgnoreCollision(Gun.transform.GetChild(i).GetComponent<Collider>(), gameObject.GetComponent<SteamVRInputManager>().CameraRig.GetComponent<Collider>());
+        }
         uiCont = gameObject.GetComponent<UIController>();
         Minutes += Hours * 60;
         Seconds += Minutes * 60;
+        OriginalGunPos = GameObject.Find("Gun").transform.position;
+        OriginalGunRot = GameObject.Find("Gun").transform.rotation;
 	}
 	
 	// Update is called once per frame

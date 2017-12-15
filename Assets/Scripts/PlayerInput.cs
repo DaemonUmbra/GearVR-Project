@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerInput : MonoBehaviour {
+    public GameManager gameManager { get; private set; }
+
     public float GrabDistance = 1.5f;
 
-    public Vector3 GunRotation = new Vector3(0, 0, 0);
+    public Vector3 GunRotation = new Vector3(0, 0, -35);
     private Quaternion GunRot;
 
     //Hands
@@ -27,7 +29,7 @@ public class PlayerInput : MonoBehaviour {
 
 
     void Start () {
-        
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -131,7 +133,7 @@ public class PlayerInput : MonoBehaviour {
                 gun.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 gun.transform.parent = RHand.transform;
                 gun.transform.localPosition = Vector3.zero;
-                gun.transform.localEulerAngles = GunRotation;
+                gun.transform.localRotation = Quaternion.Euler(GunRotation);
             }
         }
     }
@@ -145,8 +147,21 @@ public class PlayerInput : MonoBehaviour {
                 gun.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 gun.transform.parent = LHand.transform;
                 gun.transform.localPosition = Vector3.zero;
-                gun.transform.localEulerAngles = GunRotation;
+                gun.transform.localRotation = Quaternion.Euler(GunRotation);
             }
         }
+    }
+
+    internal void ResetGun()
+    {
+        AttemptRDrop();
+        AttemptLDrop();
+        gun.transform.position = gameManager.OriginalGunPos;
+        gun.transform.rotation = gameManager.OriginalGunRot;
+    }
+
+    internal void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }
